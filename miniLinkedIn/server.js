@@ -5,7 +5,7 @@ const app = express();
 const PORT = 8080;
 
 app.get('/', (req, res) => {
-    res.send('<h1>This is our graphQL app</h1>');
+    res.send('<h1>Test</h1>');
 });
 
 app.listen(PORT, () => {
