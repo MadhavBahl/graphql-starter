@@ -24,9 +24,10 @@ This is a mini project to teach GraphQL.
     email: String,
     description: String,
     location: String,
-    posts: List[Id<Company>],
+    posts: List[Id<Posts>],
     company: Id<Company>,
     position: Id<Position>,
+    connections: List[Id<User>]
 }
 ```
 
@@ -38,7 +39,7 @@ This is a mini project to teach GraphQL.
     name: String,
     description: String,
     location: String,
-    employees: List[Id<User>],
+    employees: List[Id<User>]
 }
 ```
 
@@ -48,10 +49,11 @@ This is a mini project to teach GraphQL.
 {
     id: Id,
     author: Id<User>,
+    content: String,
     likedBy: List[Id<User>],
     comments: List[Id<Post>],
     isComment: Boolean,
-    parentPost: Id<Post>,
+    parentPost: Id<Post>
 }
 ```
 
@@ -60,8 +62,16 @@ This is a mini project to teach GraphQL.
 ```js
 {
     id: Id,
-    name: String,
-    users: List[Id<User>],
+    name: String
+}
+```
+
+**5. Location**
+
+```js
+{
+    id: Id,
+    name: String
 }
 ```
 
