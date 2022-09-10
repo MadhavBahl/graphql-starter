@@ -136,7 +136,28 @@ query {
     }
   }
 }
+```
 
+**5. Find company information from id**
+
+```ts
+{
+  company(id: "210"){
+    id
+    name
+    description
+    location {
+      name
+    }
+    users {
+      id
+      firstName
+      lastName
+      description
+      email
+    }
+  }
+}
 ```
 
 ## Credits

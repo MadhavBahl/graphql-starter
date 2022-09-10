@@ -4,6 +4,7 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLID, GraphQLList } = graphql;
 
 const { UserType } = require('./User');
 const { LocationType } = require('./Location');
+const { CompanyType } = require('./Company');
 
 /**
  * Sample User data
@@ -51,6 +52,15 @@ const Root = new GraphQLObjectType({
                     .then((res) => {
                         return res.data;
                     });
+            },
+        },
+        company: {
+            type: CompanyType,
+            args: { id: { type: GraphQLID } },
+            resolve(parentValue, args) {
+                return axios
+                    .get(`http://localhost:3000/companies/${args.id}`)
+                    .then((res) => res.data);
             },
         },
     },

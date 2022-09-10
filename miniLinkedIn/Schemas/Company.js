@@ -1,19 +1,17 @@
 const graphql = require('graphql');
 const axios = require('axios');
 
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLID } = graphql;
 
-const UserType = new GraphQLObjectType({
-    name: 'User',
+const CompanyType = new GraphQLObjectType({
+    name: 'Company',
     fields: () => {
-        // By importing these inside this closure, we make sure that we do this lazily
-        // If we call it outside, due to a circular dependency, it will always be undefined
+        const { UserType } = require('./User');
         const { LocationType } = require('./Location');
+
         return {
             id: { type: GraphQLID },
-            firstName: { type: GraphQLString },
-            lastName: { type: GraphQLString },
-            email: { type: GraphQLString },
+            name: { type: GraphQLString },
             description: { type: GraphQLString },
             location: {
                 type: LocationType,
@@ -25,10 +23,20 @@ const UserType = new GraphQLObjectType({
                         .then((res) => res.data);
                 },
             },
+            users: {
+                type: new GraphQLList(UserType),
+                resolve(parentValue, args) {
+                    return axios
+                        .get(
+                            `http://localhost:3000/companies/${parentValue.id}/users`
+                        )
+                        .then((res) => res.data);
+                },
+            },
         };
     },
 });
 
 module.exports = {
-    UserType,
+    CompanyType,
 };

@@ -11,7 +11,7 @@
                 "12",
                 "14"
             ],
-            "company": "413",
+            "companyId": "413",
             "connections": [
                 "4103",
                 "4104"
@@ -25,7 +25,7 @@
             "description": "I love developing amazing quality softwares and scaling them",
             "locationId": "2",
             "posts": [ "13" ],
-            "company": "210",
+            "companyId": "210",
             "connections": [
                 "4102"
             ],
@@ -38,7 +38,7 @@
             "description": "Program Manager",
             "locationId": "3",
             "posts": [],
-            "company": "210",
+            "companyId": "210",
             "connections": [
                 "4102"
             ],
