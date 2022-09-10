@@ -85,6 +85,11 @@ query {
     id
     firstName
     lastName
+    description
+    email
+    location{
+      name
+    }
   }
 }
 ```
@@ -100,6 +105,38 @@ query {
     description
   }
 }
+```
+
+**3. Get Location By ID**
+
+```ts
+{
+  location (id: "1") {
+    id
+    name
+  }
+}
+```
+
+**4. Get all Users at a Location**
+
+```ts
+{
+  location (id: "1") {
+    name
+    users{
+      id
+      firstName
+      lastName
+      description
+      email
+      location {
+        name
+      }
+    }
+  }
+}
+
 ```
 
 ## Credits

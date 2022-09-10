@@ -1,9 +1,9 @@
 const graphql = require('graphql');
 const axios = require('axios');
-const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLList } =
-    graphql;
+const { GraphQLSchema, GraphQLObjectType, GraphQLID, GraphQLList } = graphql;
 
 const { UserType } = require('./User');
+const { LocationType } = require('./Location');
 
 /**
  * Sample User data
@@ -24,7 +24,7 @@ const Root = new GraphQLObjectType({
     fields: {
         user: {
             type: UserType,
-            args: { id: { type: GraphQLString } },
+            args: { id: { type: GraphQLID } },
             resolve(parentValue, args) {
                 return axios
                     .get(`http://localhost:3000/users/${args.id}`)
@@ -40,6 +40,17 @@ const Root = new GraphQLObjectType({
                 return axios.get('http://localhost:3000/users').then((res) => {
                     return res.data;
                 });
+            },
+        },
+        location: {
+            type: LocationType,
+            args: { id: { type: GraphQLID } },
+            resolve(parentValue, args) {
+                return axios
+                    .get(`http://localhost:3000/locations/${args.id}`)
+                    .then((res) => {
+                        return res.data;
+                    });
             },
         },
     },

@@ -1,87 +1,87 @@
 {
     "users": [
         {
-            "id": 4102,
+            "id": "4102",
             "firstName": "James",
             "lastName": "McDowell",
             "email": "jamesMcDowell@minilinkedin.com",
             "description": "I love developing Softwares",
-            "location": 1,
+            "locationId": "1",
             "posts": [
-                12,
-                14
+                "12",
+                "14"
             ],
-            "company": 413,
+            "company": "413",
             "connections": [
-                4103,
-                4104
+                "4103",
+                "4104"
             ],
-            "position": 2
+            "positionId": "2"
         }, {
-            "id": 4103,
+            "id": "4103",
             "firstName": "Ricky",
             "lastName": "Martin",
             "email": "rickyMartin@minilinkedin.com",
             "description": "I love developing amazing quality softwares and scaling them",
-            "location": 2,
-            "posts": [ 13 ],
-            "company": 210,
+            "locationId": "2",
+            "posts": [ "13" ],
+            "company": "210",
             "connections": [
-                4102
+                "4102"
             ],
-            "position": 5
+            "positionId": "5"
         }, {
-            "id": 4104,
+            "id": "4104",
             "firstName": "Johny",
             "lastName": "Lopez",
             "email": "johnyLopez@minilinkedin.com",
             "description": "Program Manager",
-            "location": 3,
+            "locationId": "3",
             "posts": [],
-            "company": 210,
+            "company": "210",
             "connections": [
-                4102
+                "4102"
             ],
-            "position": 4
+            "positionId": "4"
         }
     ],
     "companies": [
         {
-            "id": 210,
+            "id": "210",
             "name": "Azure",
             "description": "Cloud",
-            "location": 4
+            "locationId": "100"
         }, {
-            "id": 413,
+            "id": "413",
             "name": "Microsoft",
             "description": "Enterprise Solutions",
-            "location": 5
+            "locationId": "101"
         }
     ],
     "posts": [
         {
-            "id": 12,
-            "author": 4102,
+            "id": "12",
+            "author": "4102",
             "content": "Hello world!",
             "likedBy": [
-                4102,
-                4103
+                "4102",
+                "4103"
             ],
             "comments": [
-                13
+                "13"
             ],
             "isComment": false
         }, {
-            "id": 13,
+            "id": "13",
             "author": 4103,
             "content": "This was good",
             "likedBy": [],
             "comments": [],
             "isComment": true,
-            "parentPost": 12
+            "parentPost": "12"
         }, {
-            "id": 14,
-            "author": 4102,
+            "id": "14",
+            "author": "4102",
             "content": "GraphQL is cool",
             "likedBy": [],
             "comments": [],
@@ -90,31 +90,31 @@
     ],
     "positions": [
         {
-            "id": 2,
+            "id": "2",
             "title": "Software Engineer"
         }, {
-            "id": 5,
+            "id": "5",
             "title": "Senior Software Engineer"
         }, {
-            "id": 4,
+            "id": "4",
             "title": "Program Manager"
         }
     ],
     "locations": [
         {
-            "id": 1,
+            "id": "1",
             "name": "San Francisco, CA"
         }, {
-            "id": 2,
+            "id": "2",
             "name": "Hyderabad, India"
         }, {
-            "id": 3,
+            "id": "3",
             "name": "Bangalore, India"
         }, {
-            "id": 4,
+            "id": "100",
             "name": "Mountain View, CA"
         }, {
-            "id": 5,
+            "id": "101",
             "name": "Menlo Park, CA"
         }
     ]
