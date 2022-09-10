@@ -54,12 +54,30 @@ const Root = new GraphQLObjectType({
                     });
             },
         },
+        locations: {
+            type: new GraphQLList(LocationType),
+            resolve(parentValue, args) {
+                return axios
+                    .get('http://localhost:3000/locations')
+                    .then((res) => {
+                        return res.data;
+                    });
+            },
+        },
         company: {
             type: CompanyType,
             args: { id: { type: GraphQLID } },
             resolve(parentValue, args) {
                 return axios
                     .get(`http://localhost:3000/companies/${args.id}`)
+                    .then((res) => res.data);
+            },
+        },
+        companies: {
+            type: new GraphQLList(CompanyType),
+            resolve(parentValue, args) {
+                return axios
+                    .get('http://localhost:3000/companies')
                     .then((res) => res.data);
             },
         },
