@@ -89,7 +89,18 @@ query {
 }
 ```
 
+**2. Get all Users**
 
+```ts
+{
+  users {
+    id
+    firstName
+    lastName
+    description
+  }
+}
+```
 
 ## Credits
 

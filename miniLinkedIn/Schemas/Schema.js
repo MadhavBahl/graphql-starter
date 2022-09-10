@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const axios = require('axios');
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = graphql;
+const { GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLList } =
+    graphql;
 
 const { UserType } = require('./User');
 
@@ -31,6 +32,14 @@ const Root = new GraphQLObjectType({
                         return res.data;
                     });
                 // return users.find((user) => user.id === args.id);
+            },
+        },
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(parentValue, args) {
+                return axios.get('http://localhost:3000/users').then((res) => {
+                    return res.data;
+                });
             },
         },
     },
