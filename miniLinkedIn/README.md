@@ -394,3 +394,27 @@ mutation {
   }
 }
 ```
+
+**2. Edit an existing User**
+
+```gql
+mutation {
+  modifyUser (id: "8xJRV_D", firstName: "James") {
+    firstName
+    lastName
+    email
+    description
+  }
+}
+```
+
+**3. Delete a User**
+
+```gql
+mutation {
+  deleteUser (id: "xWVUlsB") {
+    firstName
+    lastName
+  }
+}
+```

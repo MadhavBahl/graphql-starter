@@ -47,6 +47,14 @@
         "4102"
       ],
       "positionId": "4"
+    },
+    {
+      "firstName": "James",
+      "lastName": "Carter",
+      "email": "JimmyCarter@minilinkedin.com",
+      "description": "I love developing softwares",
+      "locationId": "1",
+      "id": "8xJRV_D"
     }
   ],
   "companies": [
