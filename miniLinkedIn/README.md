@@ -418,3 +418,50 @@ mutation {
   }
 }
 ```
+
+**4. Add a Company**
+
+```gql
+mutation {
+	addCompany (
+    name: "Company ABC",
+    description: "We deal with fuels",
+    locationId: "1"
+  ) {
+  	id
+    name
+    description
+    location {
+      name
+    }
+  }
+}
+```
+
+**5. Modify a Company**
+
+```gql
+mutation {
+  modifyCompany (
+    id: "fKtixV8"
+    name: "Company1"
+  ) {
+    id
+    name
+    description
+    location {
+      name
+    }
+  }
+}
+```
+
+**6. Delete a Company**
+
+```gql
+mutation {
+  deleteCompany(id: "fKtixV8") {
+    id
+  }
+}
+```

@@ -3,6 +3,7 @@ const axios = require('axios');
 
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull } = graphql;
 const { UserType } = require('./User');
+const { CompanyType } = require('./Company');
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -69,6 +70,48 @@ const Mutation = new GraphQLObjectType({
             resolve(currentObject, args) {
                 return axios
                     .delete(`http://localhost:3000/users/${args.id}`)
+                    .then((res) => res.data);
+            },
+        },
+        addCompany: {
+            type: CompanyType,
+            args: {
+                name: { type: GraphQLNonNull(GraphQLString) },
+                description: { type: GraphQLString },
+                locationId: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(currentObject, { name, description, locationId }) {
+                return axios
+                    .post('http://localhost:3000/companies', {
+                        name,
+                        description,
+                        locationId,
+                    })
+                    .then((res) => res.data);
+            },
+        },
+        modifyCompany: {
+            type: CompanyType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                locationId: { type: GraphQLID },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .patch(`http://localhost:3000/companies/${args.id}`, args)
+                    .then((res) => res.data);
+            },
+        },
+        deleteCompany: {
+            type: CompanyType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .delete(`http://localhost:3000/companies/${args.id}`)
                     .then((res) => res.data);
             },
         },
