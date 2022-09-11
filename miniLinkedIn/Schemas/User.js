@@ -1,7 +1,7 @@
 const graphql = require('graphql');
 const axios = require('axios');
 
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql;
 
 const UserType = new GraphQLObjectType({
     name: 'User',
@@ -10,6 +10,7 @@ const UserType = new GraphQLObjectType({
         // If we call it outside, due to a circular dependency, it will always be undefined
         const { LocationType } = require('./Location');
         const { CompanyType } = require('./Company');
+        const { PostType } = require('./Post');
         return {
             id: { type: GraphQLID },
             firstName: { type: GraphQLString },
@@ -34,6 +35,18 @@ const UserType = new GraphQLObjectType({
                             `http://localhost:3000/companies/${parentValue.companyId}`
                         )
                         .then((res) => res.data);
+                },
+            },
+            posts: {
+                type: new GraphQLList(PostType),
+                resolve(parentValue, args) {
+                    const { posts } = parentValue;
+                    const promises = posts.map((postId) => {
+                        return axios
+                            .get(`http://localhost:3000/posts/${postId}`)
+                            .then((res) => res.data);
+                    });
+                    return Promise.all(promises);
                 },
             },
         };

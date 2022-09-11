@@ -79,7 +79,7 @@ This is a mini project to teach GraphQL.
 
 **1. Get User by id**
 
-```ts
+```gql
 query {
   user(id: "4102") {
     id
@@ -96,7 +96,7 @@ query {
 
 **2. Get all Users**
 
-```ts
+```py
 {
   users {
     id
@@ -109,7 +109,7 @@ query {
 
 **3. Get Location By ID**
 
-```ts
+```py
 {
   location (id: "1") {
     id
@@ -120,7 +120,7 @@ query {
 
 **4. Get all Users at a Location**
 
-```ts
+```py
 {
   location (id: "1") {
     name
@@ -140,7 +140,7 @@ query {
 
 **5. Find company information from id**
 
-```ts
+```py
 {
   company(id: "210"){
     id
@@ -155,6 +155,71 @@ query {
       lastName
       description
       email
+    }
+  }
+}
+```
+
+**6. Get all companies**
+
+```py
+{
+  companies {
+    id
+    name
+    location {
+      name
+    }
+    description
+  }
+}
+```
+
+**7. Get Post by ID without comments**
+
+```ts
+{
+  post(id: "12") {
+    id
+    author {
+      firstName
+      lastName
+    }
+    content
+    likedBy {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+**8. Get Post by ID with comments**
+
+```ts
+{
+  post(id: "12") {
+    id
+    author {
+      firstName
+      lastName
+    }
+    content
+    likedBy {
+      firstName
+      lastName
+    }
+    comments {
+      id
+      author {
+        firstName
+        lastName
+      }
+      isComment
+      likedBy{
+        firstName
+        lastName
+      }
     }
   }
 }
