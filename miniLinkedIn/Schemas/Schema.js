@@ -6,6 +6,7 @@ const { UserType } = require('./User');
 const { LocationType } = require('./Location');
 const { CompanyType } = require('./Company');
 const { PostType } = require('./Post');
+const { PositionType } = require('./Position');
 
 /**
  * Sample User data
@@ -88,6 +89,25 @@ const Root = new GraphQLObjectType({
             resolve(parentValue, args) {
                 return axios
                     .get(`http://localhost:3000/posts/${args.id}`)
+                    .then((res) => {
+                        return res.data;
+                    });
+            },
+        },
+        posts: {
+            type: new GraphQLList(PostType),
+            resolve(parentValue, args) {
+                return axios.get('http://localhost:3000/posts').then((res) => {
+                    return res.data;
+                });
+            },
+        },
+        position: {
+            type: PositionType,
+            args: { id: { type: GraphQLID } },
+            resolve(parentValue, args) {
+                return axios
+                    .get(`http://localhost:3000/positions/${args.id}`)
                     .then((res) => {
                         return res.data;
                     });

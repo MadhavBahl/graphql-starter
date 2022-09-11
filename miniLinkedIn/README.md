@@ -96,7 +96,7 @@ query {
 
 **2. Get all Users**
 
-```py
+```gql
 {
   users {
     id
@@ -109,7 +109,7 @@ query {
 
 **3. Get Location By ID**
 
-```py
+```gql
 {
   location (id: "1") {
     id
@@ -120,7 +120,7 @@ query {
 
 **4. Get all Users at a Location**
 
-```py
+```gql
 {
   location (id: "1") {
     name
@@ -140,7 +140,7 @@ query {
 
 **5. Find company information from id**
 
-```py
+```gql
 {
   company(id: "210"){
     id
@@ -162,7 +162,7 @@ query {
 
 **6. Get all companies**
 
-```py
+```gql
 {
   companies {
     id
@@ -177,7 +177,7 @@ query {
 
 **7. Get Post by ID without comments**
 
-```ts
+```gql
 {
   post(id: "12") {
     id
@@ -196,7 +196,7 @@ query {
 
 **8. Get Post by ID with comments**
 
-```ts
+```gql
 {
   post(id: "12") {
     id
@@ -220,6 +220,46 @@ query {
         firstName
         lastName
       }
+    }
+  }
+}
+```
+
+**9. Get all Posts**
+
+```gql
+{
+  posts{
+    id
+    content
+    author {
+      firstName
+      lastName
+    }
+    comments{
+      content
+      author {
+        firstName
+        lastName
+      }
+    }
+    likedBy {
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+**10. Get Position by ID**
+
+```gql
+{
+  position (id: "2") {
+    title
+    employees {
+      firstName
+      lastName
     }
   }
 }

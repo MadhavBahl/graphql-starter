@@ -49,6 +49,18 @@ const UserType = new GraphQLObjectType({
                     return Promise.all(promises);
                 },
             },
+            connections: {
+                type: new GraphQLList(UserType),
+                resolve(parentValue, args) {
+                    const { connections } = parentValue;
+                    const promises = connections.map((userId) => {
+                        return axios
+                            .get(`http://localhost:3000/users/${userId}`)
+                            .then((res) => res.data);
+                    });
+                    return Promise.all(promises);
+                },
+            },
         };
     },
 });
