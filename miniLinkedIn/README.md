@@ -324,3 +324,73 @@ query {
   }
 }
 ```
+
+**13. Fetching multiple Users at the same time**
+
+```gql
+{
+	user1: user(id: "4102") {
+    firstName
+    lastName
+    description
+    position {
+      title
+    }
+  }
+  user2: user(id: "4103") {
+    firstName
+    lastName
+    description
+    position {
+      title
+    }
+  }
+  
+}
+```
+
+**14. Fetching multiple users with code re-use**
+
+```gql
+fragment userFields on User{
+  firstName
+  lastName
+  description
+  position {
+    title
+  }
+}
+
+{
+	user1: user(id: "4102") {
+    ...userFields
+  }
+  user2: user(id: "4103") {
+    ...userFields
+  }
+}
+```
+
+## Mutations
+
+**1. Create a new User**
+
+```gql
+mutation {
+  addUser(
+    firstName: "Jimmy",
+    lastName: "Carter",
+    email: "JimmyCarter@minilinkedin.com",
+    description: "I love developing softwares"
+    locationId: "1"
+  ) {
+    id
+    firstName
+    lastName
+    location {
+      id
+      name
+    }
+  }
+}
+```

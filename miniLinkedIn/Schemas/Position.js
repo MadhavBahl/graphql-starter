@@ -11,10 +11,10 @@ const PositionType = new GraphQLObjectType({
         title: { type: GraphQLString },
         employees: {
             type: new GraphQLList(UserType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(
-                        `http://localhost:3000/positions/${parentValue.id}/users`
+                        `http://localhost:3000/positions/${currentObject.id}/users`
                     )
                     .then((res) => res.data);
             },

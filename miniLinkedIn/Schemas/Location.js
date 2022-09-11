@@ -12,13 +12,13 @@ const LocationType = new GraphQLObjectType({
         name: { type: GraphQLString },
         users: {
             type: new GraphQLList(UserType),
-            resolve(parentValue, args) {
-                // Here, parentValue is the location object
-                // Which means, parentValue will have the id of the location
+            resolve(currentObject, args) {
+                // Here, currentObject is the location object
+                // Which means, currentObject will have the id of the location
                 // We can use that id to get the users for that location
                 return axios
                     .get(
-                        `http://localhost:3000/locations/${parentValue.id}/users/`
+                        `http://localhost:3000/locations/${currentObject.id}/users/`
                     )
                     .then((res) => res.data);
             },

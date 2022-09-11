@@ -21,28 +21,28 @@ const UserType = new GraphQLObjectType({
             description: { type: GraphQLString },
             location: {
                 type: LocationType,
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/locations/${parentValue.locationId}`
+                            `http://localhost:3000/locations/${currentObject.locationId}`
                         )
                         .then((res) => res.data);
                 },
             },
             company: {
                 type: CompanyType,
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/companies/${parentValue.companyId}`
+                            `http://localhost:3000/companies/${currentObject.companyId}`
                         )
                         .then((res) => res.data);
                 },
             },
             posts: {
                 type: new GraphQLList(PostType),
-                resolve(parentValue, args) {
-                    const { posts } = parentValue;
+                resolve(currentObject, args) {
+                    const { posts } = currentObject;
                     const promises = posts.map((postId) => {
                         return axios
                             .get(`http://localhost:3000/posts/${postId}`)
@@ -53,8 +53,8 @@ const UserType = new GraphQLObjectType({
             },
             connections: {
                 type: new GraphQLList(UserType),
-                resolve(parentValue, args) {
-                    const { connections } = parentValue;
+                resolve(currentObject, args) {
+                    const { connections } = currentObject;
                     const promises = connections.map((userId) => {
                         return axios
                             .get(`http://localhost:3000/users/${userId}`)
@@ -65,10 +65,10 @@ const UserType = new GraphQLObjectType({
             },
             position: {
                 type: PositionType,
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/positions/${parentValue.positionId}`
+                            `http://localhost:3000/positions/${currentObject.positionId}`
                         )
                         .then((res) => res.data);
                 },

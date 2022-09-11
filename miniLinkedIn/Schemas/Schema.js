@@ -8,6 +8,8 @@ const { CompanyType } = require('./Company');
 const { PostType } = require('./Post');
 const { PositionType } = require('./Position');
 
+const { Mutation } = require('./Mutations');
+
 /**
  * Sample User data
  */
@@ -28,7 +30,7 @@ const Root = new GraphQLObjectType({
         user: {
             type: UserType,
             args: { id: { type: GraphQLID } },
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(`http://localhost:3000/users/${args.id}`)
                     .then((res) => {
@@ -39,7 +41,7 @@ const Root = new GraphQLObjectType({
         },
         users: {
             type: new GraphQLList(UserType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios.get('http://localhost:3000/users').then((res) => {
                     return res.data;
                 });
@@ -48,7 +50,7 @@ const Root = new GraphQLObjectType({
         location: {
             type: LocationType,
             args: { id: { type: GraphQLID } },
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(`http://localhost:3000/locations/${args.id}`)
                     .then((res) => {
@@ -58,7 +60,7 @@ const Root = new GraphQLObjectType({
         },
         locations: {
             type: new GraphQLList(LocationType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get('http://localhost:3000/locations')
                     .then((res) => {
@@ -69,7 +71,7 @@ const Root = new GraphQLObjectType({
         company: {
             type: CompanyType,
             args: { id: { type: GraphQLID } },
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(`http://localhost:3000/companies/${args.id}`)
                     .then((res) => res.data);
@@ -77,7 +79,7 @@ const Root = new GraphQLObjectType({
         },
         companies: {
             type: new GraphQLList(CompanyType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get('http://localhost:3000/companies')
                     .then((res) => res.data);
@@ -86,7 +88,7 @@ const Root = new GraphQLObjectType({
         post: {
             type: PostType,
             args: { id: { type: GraphQLID } },
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(`http://localhost:3000/posts/${args.id}`)
                     .then((res) => {
@@ -96,7 +98,7 @@ const Root = new GraphQLObjectType({
         },
         posts: {
             type: new GraphQLList(PostType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios.get('http://localhost:3000/posts').then((res) => {
                     return res.data;
                 });
@@ -105,7 +107,7 @@ const Root = new GraphQLObjectType({
         position: {
             type: PositionType,
             args: { id: { type: GraphQLID } },
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get(`http://localhost:3000/positions/${args.id}`)
                     .then((res) => {
@@ -115,7 +117,7 @@ const Root = new GraphQLObjectType({
         },
         positions: {
             type: new GraphQLList(PositionType),
-            resolve(parentValue, args) {
+            resolve(currentObject, args) {
                 return axios
                     .get('http://localhost:3000/positions')
                     .then((res) => {
@@ -128,4 +130,5 @@ const Root = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
     query: Root,
+    mutation: Mutation,
 });

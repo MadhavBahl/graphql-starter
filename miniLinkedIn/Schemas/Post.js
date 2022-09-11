@@ -18,10 +18,10 @@ const PostType = new GraphQLObjectType({
             id: { type: GraphQLID },
             author: {
                 type: UserType,
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/users/${parentValue.author}`
+                            `http://localhost:3000/users/${currentObject.author}`
                         )
                         .then((res) => res.data);
                 },
@@ -29,8 +29,8 @@ const PostType = new GraphQLObjectType({
             content: { type: GraphQLString },
             likedBy: {
                 type: new GraphQLList(UserType),
-                resolve(parentValue, args) {
-                    const { likedBy } = parentValue;
+                resolve(currentObject, args) {
+                    const { likedBy } = currentObject;
                     const promises = likedBy.map((userId) => {
                         return axios
                             .get(`http://localhost:3000/users/${userId}`)
@@ -41,8 +41,8 @@ const PostType = new GraphQLObjectType({
             },
             comments: {
                 type: new GraphQLList(PostType),
-                resolve(parentValue, args) {
-                    const { comments } = parentValue;
+                resolve(currentObject, args) {
+                    const { comments } = currentObject;
                     const promises = comments.map((postId) => {
                         return axios
                             .get(`http://localhost:3000/posts/${postId}`)

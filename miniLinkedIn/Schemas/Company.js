@@ -15,20 +15,20 @@ const CompanyType = new GraphQLObjectType({
             description: { type: GraphQLString },
             location: {
                 type: LocationType,
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/locations/${parentValue.locationId}`
+                            `http://localhost:3000/locations/${currentObject.locationId}`
                         )
                         .then((res) => res.data);
                 },
             },
             users: {
                 type: new GraphQLList(UserType),
-                resolve(parentValue, args) {
+                resolve(currentObject, args) {
                     return axios
                         .get(
-                            `http://localhost:3000/companies/${parentValue.id}/users`
+                            `http://localhost:3000/companies/${currentObject.id}/users`
                         )
                         .then((res) => res.data);
                 },
