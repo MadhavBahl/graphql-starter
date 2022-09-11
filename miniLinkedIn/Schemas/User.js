@@ -11,6 +11,8 @@ const UserType = new GraphQLObjectType({
         const { LocationType } = require('./Location');
         const { CompanyType } = require('./Company');
         const { PostType } = require('./Post');
+        const { PositionType } = require('./Position');
+
         return {
             id: { type: GraphQLID },
             firstName: { type: GraphQLString },
@@ -59,6 +61,16 @@ const UserType = new GraphQLObjectType({
                             .then((res) => res.data);
                     });
                     return Promise.all(promises);
+                },
+            },
+            position: {
+                type: PositionType,
+                resolve(parentValue, args) {
+                    return axios
+                        .get(
+                            `http://localhost:3000/positions/${parentValue.positionId}`
+                        )
+                        .then((res) => res.data);
                 },
             },
         };

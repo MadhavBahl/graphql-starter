@@ -113,6 +113,16 @@ const Root = new GraphQLObjectType({
                     });
             },
         },
+        positions: {
+            type: new GraphQLList(PositionType),
+            resolve(parentValue, args) {
+                return axios
+                    .get('http://localhost:3000/positions')
+                    .then((res) => {
+                        return res.data;
+                    });
+            },
+        },
     },
 });
 

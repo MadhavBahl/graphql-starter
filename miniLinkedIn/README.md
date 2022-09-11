@@ -265,11 +265,62 @@ query {
 }
 ```
 
-## Credits
+**11. Get all positions**
 
-I heavily used GitHub's copilot to write this code. It's a great tool to write code faster. You can try it out [here](https://copilot.github.com/). Trust me, you'll love it ;)
+```gql
+{
+  positions {
+    id
+    title
+    employees{
+      firstName
+      lastName
+      description
+      email
+    }
+  }
+}
+```
 
-This project is **heavily inspired** by [@Stephen Grider's](https://github.com/StephenGrider/) GraphQL user project: https://github.com/StephenGrider/GraphQLCasts/tree/master/users - Thanks Stephen for the awesome course!
+**12. Get complete information about any user**
 
-If you're checking out this repo, you should definitely follow him on GitHub!
-
+```gql
+{
+  user (id: "4102") {
+    id
+    firstName
+    lastName
+    email
+    description
+    position{
+      title
+    }
+    location {
+      name
+    }
+    company {
+      name
+    }
+    posts{
+      id
+      content
+      likedBy{
+        firstName
+        lastName
+      }
+    }
+    connections{
+      firstName
+      lastName
+      email
+      description
+      location{
+        name
+      }
+      company {
+        name
+      }
+    }
+  }
+}
+```
