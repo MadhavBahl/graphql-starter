@@ -5,6 +5,7 @@ const { GraphQLSchema, GraphQLObjectType, GraphQLID, GraphQLList } = graphql;
 const { UserType } = require('./User');
 const { LocationType } = require('./Location');
 const { CompanyType } = require('./Company');
+const { PostType } = require('./Post');
 
 /**
  * Sample User data
@@ -79,6 +80,17 @@ const Root = new GraphQLObjectType({
                 return axios
                     .get('http://localhost:3000/companies')
                     .then((res) => res.data);
+            },
+        },
+        post: {
+            type: PostType,
+            args: { id: { type: GraphQLID } },
+            resolve(parentValue, args) {
+                return axios
+                    .get(`http://localhost:3000/posts/${args.id}`)
+                    .then((res) => {
+                        return res.data;
+                    });
             },
         },
     },
