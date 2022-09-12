@@ -4,6 +4,8 @@ const axios = require('axios');
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull } = graphql;
 const { UserType } = require('./User');
 const { CompanyType } = require('./Company');
+const { LocationType } = require('./Location');
+const { PositionType } = require('./Position');
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -112,6 +114,74 @@ const Mutation = new GraphQLObjectType({
             resolve(currentObject, args) {
                 return axios
                     .delete(`http://localhost:3000/companies/${args.id}`)
+                    .then((res) => res.data);
+            },
+        },
+        addLocation: {
+            type: LocationType,
+            args: {
+                name: { type: GraphQLNonNull(GraphQLString) },
+            },
+            resolve(currentObject, { name }) {
+                return axios
+                    .post('http://localhost:3000/locations', { name })
+                    .then((res) => res.data);
+            },
+        },
+        modifyLocation: {
+            type: LocationType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .patch(`http://localhost:3000/locations/${args.id}`, args)
+                    .then((res) => res.data);
+            },
+        },
+        deleteLocation: {
+            type: LocationType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .delete(`http://localhost:3000/locations/${args.id}`)
+                    .then((res) => res.data);
+            },
+        },
+        addPosition: {
+            type: PositionType,
+            args: {
+                title: { type: GraphQLNonNull(GraphQLString) },
+            },
+            resolve(currentObject, { title }) {
+                return axios
+                    .post('http://localhost:3000/positions', { title })
+                    .then((res) => res.data);
+            },
+        },
+        modifyPosition: {
+            type: PositionType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+                title: { type: GraphQLString },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .patch(`http://localhost:3000/positions/${args.id}`, args)
+                    .then((res) => res.data);
+            },
+        },
+        deletePosition: {
+            type: PositionType,
+            args: {
+                id: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(currentObject, args) {
+                return axios
+                    .delete(`http://localhost:3000/positions/${args.id}`)
                     .then((res) => res.data);
             },
         },

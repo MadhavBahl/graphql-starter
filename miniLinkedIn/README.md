@@ -465,3 +465,35 @@ mutation {
   }
 }
 ```
+
+**7. Add a Location**
+
+```gql
+mutation {
+  addLocation (name: "Pune, India") {
+    id
+    name
+  }
+}
+```
+
+**8. Modify a Location**
+
+```gql
+mutation {
+  modifyLocation (id: "v2b20i4", name: "Mumbai, India") {
+    id
+    name
+  }
+}
+```
+
+**9. Delete a Location**
+
+```gql
+mutation {
+  deleteLocation (id: "v2b20i4") {
+    id
+  }
+}
+```
