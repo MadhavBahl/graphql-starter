@@ -501,10 +501,37 @@ mutation {
 **10. Add a Position**
 
 ```gql
-
+mutation{
+  addPosition (title: "Senior Program Manager") {
+    id
+    title
+  }
+}
 ```
 
-**11. Add a post**
+**11. Modify a Position**
+
+```gql
+mutation{
+  modifyPosition (id: "tBymKr2", title: "Program Manager 2") {
+    id
+    title
+  }
+}
+```
+
+**13. Delete a Position**
+
+```gql
+mutation{
+  deletePosition (id: "tBymKr2") {
+    id
+    title
+  }
+}
+```
+
+**14. Add a post**
 
 ```gql
 mutation {
@@ -520,6 +547,35 @@ mutation {
     }
     content
     isComment
+  }
+}
+```
+
+**15. Add a comment**
+
+```gql
+mutation {
+  addPost(
+    author: "4103",
+    content: "Loved it bro!",
+    isComment: true
+    parentPost: "14"
+  ) {
+  	id
+    author {
+      firstName
+      lastName
+    }
+    content
+    isComment
+    parentPost {
+      author {
+        firstName
+        lastName
+      }
+      content
+      isComment
+    }
   }
 }
 ```
