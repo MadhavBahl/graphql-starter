@@ -99,8 +99,17 @@
       "author": "4102",
       "content": "GraphQL is cool",
       "likedBy": [],
-      "comments": [],
+      "comments": [
+        "7wOH3Gu"
+      ],
       "isComment": false
+    },
+    {
+      "author": "4103",
+      "content": "Loved it bro!",
+      "parentPost": "14",
+      "isComment": true,
+      "id": "7wOH3Gu"
     }
   ],
   "positions": [

@@ -497,3 +497,29 @@ mutation {
   }
 }
 ```
+
+**10. Add a Position**
+
+```gql
+
+```
+
+**11. Add a post**
+
+```gql
+mutation {
+  addPost(
+    author: "4102",
+    content: "This is the most amazing post ever",
+    isComment: false
+  ) {
+  	id
+    author {
+      firstName
+      lastName
+    }
+    content
+    isComment
+  }
+}
+```

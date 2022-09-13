@@ -1,11 +1,18 @@
 const graphql = require('graphql');
 const axios = require('axios');
 
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLNonNull } = graphql;
+const {
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLID,
+    GraphQLNonNull,
+    GraphQLBoolean,
+} = graphql;
 const { UserType } = require('./User');
 const { CompanyType } = require('./Company');
 const { LocationType } = require('./Location');
 const { PositionType } = require('./Position');
+const { PostType } = require('./Post');
 
 const Mutation = new GraphQLObjectType({
     name: 'Mutation',
@@ -183,6 +190,49 @@ const Mutation = new GraphQLObjectType({
                 return axios
                     .delete(`http://localhost:3000/positions/${args.id}`)
                     .then((res) => res.data);
+            },
+        },
+        addPost: {
+            type: PostType,
+            args: {
+                author: { type: GraphQLNonNull(GraphQLID) },
+                content: { type: GraphQLNonNull(GraphQLString) },
+                parentPost: { type: GraphQLID },
+                isComment: { type: GraphQLBoolean },
+            },
+            resolve(currentObject, { author, content, parentPost, isComment }) {
+                return axios
+                    .post('http://localhost:3000/posts', {
+                        author,
+                        content,
+                        parentPost,
+                        isComment,
+                    })
+                    .then((res) => {
+                        if (isComment) {
+                            // if it's a comment, parentPost must be modified
+                            axios
+                                .get(
+                                    `http://localhost:3000/posts/${parentPost}`
+                                )
+                                .then((resp) => {
+                                    const { comments } = resp.data;
+                                    return axios
+                                        .patch(
+                                            `http://localhost:3000/posts/${parentPost}`,
+                                            {
+                                                comments: [
+                                                    ...comments,
+                                                    res.data.id,
+                                                ],
+                                            }
+                                        )
+                                        .then((r) => r.data);
+                                });
+                        }
+
+                        return res.data;
+                    });
             },
         },
     },

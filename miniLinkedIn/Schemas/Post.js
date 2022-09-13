@@ -27,6 +27,23 @@ const PostType = new GraphQLObjectType({
                 },
             },
             content: { type: GraphQLString },
+            parentPost: {
+                type: PostType,
+                resolve(currentObject, args) {
+                    console.log(
+                        `CURRENT OBJECT: ${JSON.stringify(
+                            currentObject,
+                            undefined,
+                            2
+                        )}`
+                    );
+                    return axios
+                        .get(
+                            `http://localhost:3000/posts/${currentObject.parentPost}`
+                        )
+                        .then((res) => res.data);
+                },
+            },
             likedBy: {
                 type: new GraphQLList(UserType),
                 resolve(currentObject, args) {
