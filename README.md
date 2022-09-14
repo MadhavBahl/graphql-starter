@@ -18,6 +18,10 @@
 1. Under-fetching (If you need more data than what the single endpoint supports, you'll have to call multiple APIs)
 2. Over-fetching (If you need less data than what the endpoint is giving, you're just wasting your users data pack)
 
+## Check out the slides
+
+Download the slides [here](http://madhavbahl.tech/graphql-starter/slides.pptx)
+
 ## How to run
 
 - Clone this repo: `git clone https://github.com/MadhavBahl/graphql-starter`
@@ -276,6 +280,321 @@ query {
     employees {
       firstName
       lastName
+    }
+  }
+}
+```
+
+**11. Get all positions**
+
+```gql
+{
+  positions {
+    id
+    title
+    employees{
+      firstName
+      lastName
+      description
+      email
+    }
+  }
+}
+```
+
+**12. Get complete information about any user**
+
+```gql
+{
+  user (id: "4102") {
+    id
+    firstName
+    lastName
+    email
+    description
+    position{
+      title
+    }
+    location {
+      name
+    }
+    company {
+      name
+    }
+    posts{
+      id
+      content
+      likedBy{
+        firstName
+        lastName
+      }
+    }
+    connections{
+      firstName
+      lastName
+      email
+      description
+      location{
+        name
+      }
+      company {
+        name
+      }
+    }
+  }
+}
+```
+
+**13. Fetching multiple Users at the same time**
+
+```gql
+{
+	user1: user(id: "4102") {
+    firstName
+    lastName
+    description
+    position {
+      title
+    }
+  }
+  user2: user(id: "4103") {
+    firstName
+    lastName
+    description
+    position {
+      title
+    }
+  }
+  
+}
+```
+
+**14. Fetching multiple users with code re-use**
+
+```gql
+fragment userFields on User{
+  firstName
+  lastName
+  description
+  position {
+    title
+  }
+}
+
+{
+	user1: user(id: "4102") {
+    ...userFields
+  }
+  user2: user(id: "4103") {
+    ...userFields
+  }
+}
+```
+
+## Mutations
+
+**1. Create a new User**
+
+```gql
+mutation {
+  addUser(
+    firstName: "Jimmy",
+    lastName: "Carter",
+    email: "JimmyCarter@minilinkedin.com",
+    description: "I love developing softwares"
+    locationId: "1"
+  ) {
+    id
+    firstName
+    lastName
+    location {
+      id
+      name
+    }
+  }
+}
+```
+
+**2. Edit an existing User**
+
+```gql
+mutation {
+  modifyUser (id: "8xJRV_D", firstName: "James") {
+    firstName
+    lastName
+    email
+    description
+  }
+}
+```
+
+**3. Delete a User**
+
+```gql
+mutation {
+  deleteUser (id: "xWVUlsB") {
+    firstName
+    lastName
+  }
+}
+```
+
+**4. Add a Company**
+
+```gql
+mutation {
+	addCompany (
+    name: "Company ABC",
+    description: "We deal with fuels",
+    locationId: "1"
+  ) {
+  	id
+    name
+    description
+    location {
+      name
+    }
+  }
+}
+```
+
+**5. Modify a Company**
+
+```gql
+mutation {
+  modifyCompany (
+    id: "fKtixV8"
+    name: "Company1"
+  ) {
+    id
+    name
+    description
+    location {
+      name
+    }
+  }
+}
+```
+
+**6. Delete a Company**
+
+```gql
+mutation {
+  deleteCompany(id: "fKtixV8") {
+    id
+  }
+}
+```
+
+**7. Add a Location**
+
+```gql
+mutation {
+  addLocation (name: "Pune, India") {
+    id
+    name
+  }
+}
+```
+
+**8. Modify a Location**
+
+```gql
+mutation {
+  modifyLocation (id: "v2b20i4", name: "Mumbai, India") {
+    id
+    name
+  }
+}
+```
+
+**9. Delete a Location**
+
+```gql
+mutation {
+  deleteLocation (id: "v2b20i4") {
+    id
+  }
+}
+```
+
+**10. Add a Position**
+
+```gql
+mutation{
+  addPosition (title: "Senior Program Manager") {
+    id
+    title
+  }
+}
+```
+
+**11. Modify a Position**
+
+```gql
+mutation{
+  modifyPosition (id: "tBymKr2", title: "Program Manager 2") {
+    id
+    title
+  }
+}
+```
+
+**13. Delete a Position**
+
+```gql
+mutation{
+  deletePosition (id: "tBymKr2") {
+    id
+    title
+  }
+}
+```
+
+**14. Add a post**
+
+```gql
+mutation {
+  addPost(
+    author: "4102",
+    content: "This is the most amazing post ever",
+    isComment: false
+  ) {
+  	id
+    author {
+      firstName
+      lastName
+    }
+    content
+    isComment
+  }
+}
+```
+
+**15. Add a comment**
+
+```gql
+mutation {
+  addPost(
+    author: "4103",
+    content: "Loved it bro!",
+    isComment: true
+    parentPost: "14"
+  ) {
+  	id
+    author {
+      firstName
+      lastName
+    }
+    content
+    isComment
+    parentPost {
+      author {
+        firstName
+        lastName
+      }
+      content
+      isComment
     }
   }
 }
